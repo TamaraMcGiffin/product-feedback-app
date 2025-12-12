@@ -20,7 +20,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AddFeedback />} />
+        <Route path="/AddFeedback" element={<AddFeedback />} />
       </Routes>
     </div>
   );
