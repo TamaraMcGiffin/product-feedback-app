@@ -1,6 +1,6 @@
 //Correct filepaths for components, tested and works!
 // Render NoFeedBackCard in here
-// Add count function in here
+// Add count function in here - refer to getNewCountryCount function in CountryDetails.com for function and rendering
 import { useState, useEffect } from "react";
 //forgot to import yay, worked out!
 import ButtonsFilters from "../components/ButtonsFilters";
@@ -13,6 +13,8 @@ function Home() {
   const [savedSuggestions, setSavedSuggestions] = useState([]);
   // define a new useState to store specific, selected category
   const [selectedCategory, setSelectedCategory] = useState("All");
+  // create a useState for count starting at 0
+  const [feedbackCount, setFeedbackCount] = useState(0);
 
   // Refer back to React Extensions project - Home.jsx, and Card.jsx for code structures
   // pass through category
@@ -79,7 +81,25 @@ function Home() {
     }
   };
 
+  // Can I pull counts from here?
   const suggestionList = suggestionItems;
+  //Create another variable tapping into suggestion Items for count?
+
+  useEffect(() => {
+    const updateFeedbackCount = async () => {
+    const currentCount = suggestionItems.length;
+    setFeedbackCount(currentCount);
+    };
+    updateFeedbackCount();
+  }, [suggestionItems]);
+
+    // useEffect(() => {
+    //   const updateCountryCount = async () => {
+    //     const newCount = await getNewCountryCount(countryName);
+    //     setViewCount(newCount);
+    //   };
+    //   updateCountryCount();
+    // }, [countryName]);
 
   useEffect(() => {
     getSuggestionsByCategory(selectedCategory);
@@ -94,6 +114,10 @@ function Home() {
         <p>Feedback Board</p>
       </div>
       <ButtonsFilters onClick={handleClick} />
+
+      <div className="feedback-header-bar">
+        <h2 className="feedback-count">{feedbackCount} Suggestions</h2>
+      </div>
       {/* Create conditional statement If the list is not empty, show the list, if the list is empty show NoFeedbackCard */}
       {suggestionList.length > 0 ? (
         <div className="suggestion-list">
