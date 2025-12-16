@@ -1,7 +1,9 @@
+// Receives data for one suggestion as a prop
+
 function SuggestionsCard() {
   return (
     <>
-      <h1> There is no feedback yet. </h1>
+      <h1> Add dynamic values here </h1>
     </>
   );
 }
