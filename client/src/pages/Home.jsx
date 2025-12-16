@@ -1,44 +1,51 @@
 //Correct filepaths for components, tested and works!
 // Render NoFeedBackCard in here
+// Add count function in here
 import { useState, useEffect } from "react";
 //forgot to import yay, worked out!
 import ButtonsFilters from "../components/ButtonsFilters";
-// import NoFeedbackCard from "../components/NoFeedbackCard";
+import NoFeedbackCard from "../components/NoFeedbackCard";
 import SuggestionsCard from "../components/SuggestionsCard";
 
 function Home() {
   // const [savedSuggestionsData, setSavedSuggestionsData] = useState([]);
   const [suggestionItems, setSuggestionItems] = useState([]);
   const [savedSuggestions, setSavedSuggestions] = useState([]);
+  // define a new useState to store specific, selected category
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const handleClick = (category) => {
-    console.log(`Filter button clicked for ${category}`);
+  // Refer back to React Extensions project - Home.jsx, and Card.jsx for code structures
+  // pass through category
+  const getSuggestionsByCategory = async (category) => {
+    try {
+      const response = await fetch(
+        // Make category dynamic? Is this correct? Backticks, template literal?
+        `/api/get-suggestions-by-category/${category}`
+      );
+      if (!response.ok) {
+        console.error("Error retrieving suggestion", response.status);
+        return;
+      }
+
+      const newestSuggestionsFromAPI = await response.json();
+      //removed extra g from Suggestions, misspelling in console log threw an error
+      console.log("New suggestion data", newestSuggestionsFromAPI);
+
+      //removed unnecessary console log, conflicting?
+
+      // if (!newestSuggestionFromAPI) {
+      //   console.log("No new suggestion found");
+      //   return;
+      // }
+      // NOTE: Want to return an array, store an array of objects in state - not making a brand new object
+      // Follow similar format for category
+      setSuggestionItems(newestSuggestionsFromAPI);
+      // Throwing error, debug, not highlighting?
+      // setSavedSuggestions(suggestionsAPIData);
+    } catch (error) {
+      console.error("Error", error);
+    }
   };
-  // const getSuggestionsByCategory = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "/api/get-suggestions-by-category/:category"
-  //     );
-  //     if (!response.ok) {
-  //       console.error("Error retrieving suggestion", response.status);
-  //       return;
-  //     }
-  //     const newestSuggestionFromAPI = await response.json();
-  //     console.log("New suggestion data", newestSugggestionFromAPI);
-  //     if (!newestSuggestionFromAPI) {
-  //       console.log("No new suggestion found");
-  //       return;
-  //     }
-  //     setSuggestionInfo({
-  //       title: newestSuggestionFromAPI.title,
-  //       category: newestSuggestionFromAPI.category,
-  //       // fixed dot notation from country to country_name
-  //       detail: newestSuggestionFromAPI.detail,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error", error);
-  //   }
-  // };
 
   // Next: Need to move render suggestions to Home Page and keep working on it
 
@@ -58,11 +65,24 @@ function Home() {
       console.error("Error", error);
     }
   };
+  // Moved to below functions, maybe affects logic?
+  // Add useState to handleClick function for filter button click
+  const handleClick = (category) => {
+    console.log(`Filter button clicked for ${category}`);
+    setSelectedCategory(category);
+
+    // conditional statement - if category is equal to all, render all suggestion, if not get suggestions by category
+    if (category === "All") {
+      renderSuggestions();
+    } else {
+      getSuggestionsByCategory(category);
+    }
+  };
 
   const suggestionList = suggestionItems;
 
   useEffect(() => {
-    // getSuggestionsByCategory();
+    getSuggestionsByCategory(selectedCategory);
     renderSuggestions();
   }, []);
 
@@ -74,17 +94,20 @@ function Home() {
         <p>Feedback Board</p>
       </div>
       <ButtonsFilters onClick={handleClick} />
-
-      {/* <NoFeedbackCard /> */}
-      <div className="suggestion-list">
-        {suggestionList.map((suggestion) => (
-          <SuggestionsCard
-            key={suggestion.suggestions_id}
-            suggestion={suggestion}
-            // Fixed key mapping - rendering now!
-          />
-        ))}
-      </div>
+      {/* Create conditional statement If the list is not empty, show the list, if the list is empty show NoFeedbackCard */}
+      {suggestionList.length > 0 ? (
+        <div className="suggestion-list">
+          {suggestionList.map((suggestion) => (
+            <SuggestionsCard
+              key={suggestion.suggestions_id}
+              suggestion={suggestion}
+              // Fixed key mapping - rendering now!
+            />
+          ))}
+        </div>
+      ) : (
+        <NoFeedbackCard />
+      )}
     </>
   );
 }

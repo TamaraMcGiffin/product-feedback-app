@@ -5,7 +5,8 @@ import { useState } from "react";
 
 // pages/AddFeedback.jsx
 function AddFeedback() {
-  const emptyFormState = { title: "", category: "", detail: "" };
+  // This is my way of setting UI as the default category - won't break other categories!
+  const emptyFormState = { title: "", category: "UI", detail: "" };
   const [formData, setFormData] = useState(emptyFormState);
 
   const [suggestionInfo, setSuggestionInfo] = useState([]);
@@ -135,11 +136,11 @@ function AddFeedback() {
             value={formData.category}
             onChange={handleInputChange}
           >
-            <option value="ui">UI</option>
-            <option value="ux">UX</option>
-            <option value="enhancement">Enhancement</option>
-            <option value="bug">Bug</option>
-            <option value="feature">Feature</option>
+            <option value="UI">UI</option>
+            <option value="UX">UX</option>
+            <option value="Enhancement">Enhancement</option>
+            <option value="Bug">Bug</option>
+            <option value="Feature">Feature</option>
           </select>
 
           <label htmlFor="detail">Feedback Detail</label>

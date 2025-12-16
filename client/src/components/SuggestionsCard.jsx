@@ -2,8 +2,8 @@
 // Use CountryCard.jsx as a reference in Countries App project
 
 function SuggestionsCard({ suggestion }) {
-  // Removed category for temporary test rendering
-  const { title, detail } = suggestion;
+  // Re-added category for temporary test rendering
+  const { title, category, detail } = suggestion;
   // If No suggestion how to render no feedback card - do it here? No do it in Home.jsx
 
   return (
@@ -16,7 +16,7 @@ function SuggestionsCard({ suggestion }) {
           <p>{detail}</p>
         </div>
         {/* Suggestions LOOKS just like button, however in demo does not function, just a tag - maybe add to button styling class in css later? */}
-        {/* <div className="suggestions-category-tag">{category}</div> */}
+        <div className="suggestions-category-tag">{category}</div>
       </div>
     </>
   );
