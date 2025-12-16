@@ -52,57 +52,57 @@ function AddFeedback() {
     setFormData(emptyFormState);
   };
 
-  const getSuggestionsByCategory = async () => {
-    try {
-      const response = await fetch(
-        "/api/get-suggestions-by-category/:category"
-      );
-      if (!response.ok) {
-        console.error("Error retrieving suggestion", response.status);
-        return;
-      }
-      const newestSuggestionFromAPI = await response.json();
-      console.log("New suggestion data", newestSugggestionFromAPI);
-      if (!newestSuggestionFromAPI) {
-        console.log("No new suggestion found");
-        return;
-      }
-      setSuggestionInfo({
-        title: newestSuggestionFromAPI.title,
-        category: newestSuggestionFromAPI.category,
-        // fixed dot notation from country to country_name
-        detail: newestSuggestionFromAPI.detail,
-      });
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
+  // const getSuggestionsByCategory = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "/api/get-suggestions-by-category/:category"
+  //     );
+  //     if (!response.ok) {
+  //       console.error("Error retrieving suggestion", response.status);
+  //       return;
+  //     }
+  //     const newestSuggestionFromAPI = await response.json();
+  //     console.log("New suggestion data", newestSugggestionFromAPI);
+  //     if (!newestSuggestionFromAPI) {
+  //       console.log("No new suggestion found");
+  //       return;
+  //     }
+  //     setSuggestionInfo({
+  //       title: newestSuggestionFromAPI.title,
+  //       category: newestSuggestionFromAPI.category,
+  //       // fixed dot notation from country to country_name
+  //       detail: newestSuggestionFromAPI.detail,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error", error);
+  //   }
+  // };
 
-  // Next: Need to move render suggestions to Home Page and keep working on it
+  // // Next: Need to move render suggestions to Home Page and keep working on it
 
-  const renderSuggestions = async () => {
-    try {
-      const response = await fetch("/api/get-all-suggestions");
+  // const renderSuggestions = async () => {
+  //   try {
+  //     const response = await fetch("/api/get-all-suggestions");
 
-      if (!response.ok) {
-        console.error("Error", response.status);
-        return;
-      }
+  //     if (!response.ok) {
+  //       console.error("Error", response.status);
+  //       return;
+  //     }
 
-      const savedSuggestionsData = await response.json();
-      // Fixed and debugged here 12/14
-      const savedSuggestionsList = savedSuggestionsData.map(
-        (savedSuggestionToList) => savedSuggestionToList.title
-      );
-      // Fixed misspelling names to name
-      const allSavedSuggestions = SuggestionsData.filter((suggestion) =>
-        savedSuggestionsList.includes(suggestion.name.common)
-      );
-      setSavedSuggestions(allSavedSuggestions);
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
+  //     const savedSuggestionsData = await response.json();
+  //     // Fixed and debugged here 12/14
+  //     const savedSuggestionsList = savedSuggestionsData.map(
+  //       (savedSuggestionToList) => savedSuggestionToList.title
+  //     );
+  //     // Fixed misspelling names to name
+  //     const allSavedSuggestions = SuggestionsData.filter((suggestion) =>
+  //       savedSuggestionsList.includes(suggestion.name.common)
+  //     );
+  //     setSavedSuggestions(allSavedSuggestions);
+  //   } catch (error) {
+  //     console.error("Error", error);
+  //   }
+  // };
 
   // useEffect(() => {
   //   getSuggestionsByCategory();

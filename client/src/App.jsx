@@ -9,7 +9,6 @@ function App() {
     <div>
       <nav>
         <ul>
-          {/* No Home link on navbar, however back button on AddFeedback page should route back to Home page - how do I appropriately structure this? */}
           <li>
             <Link to="/">Home</Link>
           </li>

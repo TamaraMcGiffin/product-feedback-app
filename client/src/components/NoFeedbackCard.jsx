@@ -1,7 +1,8 @@
 function NoFeedbackCard() {
   return (
     <>
-      <h1> There is no feedback yet. </h1>
+      <h3> There is no feedback yet. </h3>
+     <p>Try a different category or add a suggestion.</p>
     </>
   );
 }
