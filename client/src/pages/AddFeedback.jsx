@@ -1,11 +1,7 @@
-// Refer back to form code in SavedCountries.jsx/Countries App project to pull form data and render
-
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-// pages/AddFeedback.jsx
 function AddFeedback() {
-  // This is my way of setting UI as the default category - won't break other categories!
   const emptyFormState = { title: "", category: "UI", detail: "" };
   const [formData, setFormData] = useState(emptyFormState);
 
@@ -18,15 +14,11 @@ function AddFeedback() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Step 1: Declare a new function called storeUserData() which should send a POST request to the API to the /add-one-user endpoint
-  // Step 2: Call the storeUserData() function on submit
-
   const storeFeedbackData = async () => {
     // When we call the fetch() function, we only need to pass in
     // The API url as one parameter when it's a GET request
     // When we need to make a POST request, we have to pass in a second parameter: an Object
 
-    // Test in Postman to see if working still and test front and back end POST http://localhost:3000/add-one-suggestion ✅
     const response = await fetch("/api/add-one-suggestion", {
       method: "POST", // We need to say we're sending a POST request because by default it's always a GET request
       headers: {
@@ -53,72 +45,18 @@ function AddFeedback() {
     setFormData(emptyFormState);
   };
 
-  // const getSuggestionsByCategory = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "/api/get-suggestions-by-category/:category"
-  //     );
-  //     if (!response.ok) {
-  //       console.error("Error retrieving suggestion", response.status);
-  //       return;
-  //     }
-  //     const newestSuggestionFromAPI = await response.json();
-  //     console.log("New suggestion data", newestSugggestionFromAPI);
-  //     if (!newestSuggestionFromAPI) {
-  //       console.log("No new suggestion found");
-  //       return;
-  //     }
-  //     setSuggestionInfo({
-  //       title: newestSuggestionFromAPI.title,
-  //       category: newestSuggestionFromAPI.category,
-  //       // fixed dot notation from country to country_name
-  //       detail: newestSuggestionFromAPI.detail,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error", error);
-  //   }
-  // };
-
-  // // Next: Need to move render suggestions to Home Page and keep working on it
-
-  // const renderSuggestions = async () => {
-  //   try {
-  //     const response = await fetch("/api/get-all-suggestions");
-
-  //     if (!response.ok) {
-  //       console.error("Error", response.status);
-  //       return;
-  //     }
-
-  //     const savedSuggestionsData = await response.json();
-  //     // Fixed and debugged here 12/14
-  //     const savedSuggestionsList = savedSuggestionsData.map(
-  //       (savedSuggestionToList) => savedSuggestionToList.title
-  //     );
-  //     // Fixed misspelling names to name
-  //     const allSavedSuggestions = SuggestionsData.filter((suggestion) =>
-  //       savedSuggestionsList.includes(suggestion.name.common)
-  //     );
-  //     setSavedSuggestions(allSavedSuggestions);
-  //   } catch (error) {
-  //     console.error("Error", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getSuggestionsByCategory();
-  //   renderSuggestions();
-  // }, []);
-
   return (
     <>
-      <Link to="/"> Go Back </Link>
+      <Link to="/">
+        <button>Go Back</button>{" "}
+      </Link>
 
       <div className="feedback-form">
         <h1> Create New Feedback</h1>
-        {/* Attach onsubmit handlers and dot notation to link api call to form */}
+
         <form onSubmit={handleSubmit}>
           <label htmlFor="title">Feedback Title</label>
+          <br></br>
           <input
             type="text"
             id="title"
@@ -127,8 +65,10 @@ function AddFeedback() {
             value={formData.title}
             onChange={handleInputChange}
           />
-
+<br></br>
+<br></br>
           <label htmlFor="category">Category</label>
+          <br></br>
           <select
             id="category"
             name="category"
@@ -142,8 +82,10 @@ function AddFeedback() {
             <option value="Bug">Bug</option>
             <option value="Feature">Feature</option>
           </select>
-
+<br></br>
+<br></br>
           <label htmlFor="detail">Feedback Detail</label>
+          <br></br>
           <textarea
             id="detail"
             name="detail"
@@ -151,7 +93,10 @@ function AddFeedback() {
             value={formData.detail}
             onChange={handleInputChange}
           />
-          {/* Wrap buttons in link for path back to Home page */}
+
+          <br></br>
+          <br></br>
+
           <Link to="/">
             <button type="button">Cancel</button>
           </Link>

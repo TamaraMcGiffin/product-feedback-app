@@ -1,1 +1,109 @@
-/* Component-specific styles (this only affects the App component and its children) */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* for debugging grid, showing borders */
+div {
+  border: 3px solid black;
+}
+
+.feedback-form {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 40px;
+  align-items: center;
+}
+/* Desktop, default */
+.home-wrapper {
+  display: grid;
+  grid-template-columns: 255px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar feedback";
+  gap: 24px 30px;
+  max-width: 100%;
+  margin: 40px;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+  align-self: start;
+}
+
+.feedback-header-bar {
+  grid-area: header;
+}
+.feedback-cards {
+  grid-area: feedback;
+}
+
+/* Tablet size */
+@media (max-width: 800px) {
+  body {
+    background-color: yellow;
+  }
+
+  .home-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "header"
+      "feedback";
+    max-width: 100%;
+    margin: 3.5rem auto;
+    gap: 40px;
+  }
+
+  .sidebar {
+    /* Added sidebar div and changed grid to 3 columns */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    gap: 10px;
+  }
+}
+
+.feedback-header-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 15px 25px;
+}
+
+.feedback-head-bar button {
+  grid-column: 2;
+}
+
+/* tried this to move container more to right but it messes up desktop and mobile formatting */
+
+/* .buttons-container {
+  grid-column: 2;
+} */
+
+/* Mobile/phones */
+@media (max-width: 570px) {
+  body {
+    background-color: red;
+  }
+
+  .home-wrapper {
+    margin: 0;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .sidebar {
+    /*  1 column  */
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
