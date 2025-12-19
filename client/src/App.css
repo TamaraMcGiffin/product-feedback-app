@@ -48,9 +48,7 @@ div {
 
 /* Tablet size */
 @media (max-width: 800px) {
-  body {
-    background-color: yellow;
-  }
+
 
   .home-wrapper {
     grid-template-columns: 1fr;
@@ -91,9 +89,7 @@ div {
 
 /* Mobile/phones */
 @media (max-width: 570px) {
-  body {
-    background-color: red;
-  }
+
 
   .home-wrapper {
     margin: 0;
